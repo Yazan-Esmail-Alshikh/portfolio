@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-void: #0A0A0B;
+  --color-panel: #17171B;
+  --color-ivory: #F5F3EE;
+  --color-brass: #D4A94E;
+  --color-indigo: #6B5CA5;
+  --color-grey-60: #8A8A90;
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background-color: #0A0A0B;
+  color: #F5F3EE;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #0A0A0B; }
+::-webkit-scrollbar-thumb { background: rgba(107,92,165,0.4); border-radius: 2px; }
+
+/* ── Global focus ── */
+:focus-visible {
+  outline: 2px solid #D4A94E;
+  outline-offset: 2px;
+}
+
+/* ── Primary button (filled brass) ── */
+.btn-primary {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 160ms ease-out, transform 160ms ease-out, box-shadow 160ms ease-out, color 160ms ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-primary:hover {
+  background-color: #DDB95A !important;
+  color: #0A0A0B !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(212,169,78,0.22);
+}
+.btn-primary:active {
+  background-color: #C49A3C !important;
+  color: #0A0A0B !important;
+  transform: translateY(0) !important;
+  box-shadow: 0 1px 8px rgba(212,169,78,0.28) !important;
+}
+.btn-primary:focus-visible {
+  outline: 2px solid #D4A94E;
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* ── Ghost button (outline) ── */
+.btn-ghost {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 160ms ease-out, background-color 160ms ease-out, color 160ms ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-ghost:hover {
+  border-color: #F5F3EE !important;
+  background-color: rgba(23,23,27,0.7) !important;
+  color: #F5F3EE !important;
+}
+.btn-ghost:active {
+  background-color: rgba(23,23,27,0.95) !important;
+  border-color: #F5F3EE !important;
+}
+.btn-ghost:focus-visible {
+  outline: 2px solid #D4A94E;
+  outline-offset: 2px;
+}
+
+/* ── Animated underline (nav, contact links) ── */
+.link-underline {
+  position: relative;
+  text-decoration: none !important;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #D4A94E;
+  transition: width 150ms ease-out;
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  width: 100%;
+}
+.link-underline:focus-visible {
+  outline: 2px solid #D4A94E;
+  outline-offset: 3px;
+}
+
+/* ── Channel strip ── */
+.channel-strip {
+  transition: box-shadow 180ms ease-out, transform 180ms ease-out, background-color 180ms ease-out;
+}
+.channel-strip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(107,92,165,0.35), 0 8px 28px rgba(107,92,165,0.12) !important;
+  background-color: #1C1C21 !important;
+}
+.channel-strip:active {
+  transform: translateY(0);
+}
+.channel-strip:focus-visible {
+  outline: 2px solid #D4A94E;
+  outline-offset: 2px;
+}
+
+/* ── Project card ── */
+.project-card {
+  transition: box-shadow 180ms ease-out, transform 180ms ease-out;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(107,92,165,0.3), 0 12px 36px rgba(107,92,165,0.16) !important;
+}
+.project-card:active {
+  transform: translateY(-1px);
+}
+
+/* ── Stack tag (inside project cards) ── */
+.stack-tag {
+  transition: background-color 140ms ease-out, color 140ms ease-out, border-color 140ms ease-out;
+  cursor: default;
+}
+.stack-tag:hover {
+  background-color: #252529 !important;
+  color: #F5F3EE !important;
+  border-color: rgba(245,243,238,0.25) !important;
+}
+
+/* ── Skill group card ── */
+.skill-card {
+  transition: border-color 160ms ease-out;
+}
+
+/* ── Skill item (text label) ── */
+.skill-item {
+  transition: color 140ms ease-out;
+  cursor: default;
+}
+.skill-item:hover {
+  color: #F5F3EE !important;
+}
+
+/* ── Meter bar ── */
+.meter-bar-wrap {
+  transition: filter 160ms ease-out;
+}
+.meter-bar-wrap:hover {
+  filter: brightness(1.25);
+}
+.meter-bar-wrap:hover .meter-stat-label {
+  transform: translateY(-2px);
+}
+.meter-stat-label {
+  transition: transform 160ms ease-out;
+}
+
+/* ── Keyframe animations ── */
+@keyframes meter-idle {
+  0%, 100% { transform: scaleY(0.62); }
+  25% { transform: scaleY(0.78); }
+  50% { transform: scaleY(0.55); }
+  75% { transform: scaleY(0.85); }
+}
+@keyframes meter-settle {
+  0% { transform: scaleY(0); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@keyframes indigo-bloom {
+  0%, 100% { opacity: 0.12; transform: scale(1); }
+  50% { opacity: 0.18; transform: scale(1.04); }
+}
+
+/* ── Reduced motion overrides ── */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; }
+
+  .btn-primary:hover,
+  .btn-primary:active { transform: none !important; }
+
+  .btn-ghost { transition: border-color 160ms ease-out, background-color 160ms ease-out; }
+
+  .link-underline::after {
+    transition: none;
+    width: 0;
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    width: 100%;
+  }
+
+  .channel-strip:hover { transform: none !important; }
+  .channel-strip:active { transform: none !important; }
+
+  .project-card:hover { transform: none !important; }
+  .project-card:active { transform: none !important; }
+
+  .meter-bar-wrap:hover .meter-stat-label { transform: none !important; }
+  .meter-stat-label { transition: none !important; }
+}

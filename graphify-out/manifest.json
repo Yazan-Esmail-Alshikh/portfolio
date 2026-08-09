@@ -1,0 +1,107 @@
+{
+  ".figma/make/analyze-routes": {
+    "mtime": 1786085785.0,
+    "ast_hash": "d408a5d15cc549d950d9c85aa8e6733b",
+    "semantic_hash": "d408a5d15cc549d950d9c85aa8e6733b"
+  },
+  ".figma/make/deploy": {
+    "mtime": 1786085785.0,
+    "ast_hash": "83ee566420dd252ed3f89323c4a65854",
+    "semantic_hash": "83ee566420dd252ed3f89323c4a65854"
+  },
+  ".figma/make/deploy-preview": {
+    "mtime": 1786085785.0,
+    "ast_hash": "fdc0963cde1d657cef0c0466c295a006",
+    "semantic_hash": "fdc0963cde1d657cef0c0466c295a006"
+  },
+  ".figma/make/dev": {
+    "mtime": 1786085785.0,
+    "ast_hash": "a5b7c2a9b3a999bfe8576e021e0f16b3",
+    "semantic_hash": "a5b7c2a9b3a999bfe8576e021e0f16b3"
+  },
+  ".figma/make/dev.json": {
+    "mtime": 1786085785.0,
+    "ast_hash": "6d5deb245a1940f815cb1e363b75fc90",
+    "semantic_hash": "6d5deb245a1940f815cb1e363b75fc90"
+  },
+  ".figma/make/format": {
+    "mtime": 1786085785.0,
+    "ast_hash": "c5130615e938cf0b5fb51e190b3f212f",
+    "semantic_hash": "c5130615e938cf0b5fb51e190b3f212f"
+  },
+  ".figma/make/install": {
+    "mtime": 1786085785.0,
+    "ast_hash": "fb3cb807fb882cb065ee02b8874f759c",
+    "semantic_hash": "fb3cb807fb882cb065ee02b8874f759c"
+  },
+  ".figma/make/langserver": {
+    "mtime": 1786085785.0,
+    "ast_hash": "09d73139e9a9873fe47d02fb6e66d19e",
+    "semantic_hash": "09d73139e9a9873fe47d02fb6e66d19e"
+  },
+  ".figma/make/site.json": {
+    "mtime": 1786085785.0,
+    "ast_hash": "136901dcd2620af150dfc0459db12307",
+    "semantic_hash": "136901dcd2620af150dfc0459db12307"
+  },
+  "package.json": {
+    "mtime": 1786085785.0,
+    "ast_hash": "33321559e434b05648e8155fe36a7470",
+    "semantic_hash": "33321559e434b05648e8155fe36a7470"
+  },
+  "src/App.tsx": {
+    "mtime": 1786085785.0,
+    "ast_hash": "321a6ac146e09382c7a47664f2ab6173",
+    "semantic_hash": "321a6ac146e09382c7a47664f2ab6173"
+  },
+  "src/main.tsx": {
+    "mtime": 1786085785.0,
+    "ast_hash": "42c0b1d9c2751a5e4e55876cee46fc57",
+    "semantic_hash": "42c0b1d9c2751a5e4e55876cee46fc57"
+  },
+  "src/vite-env.d.ts": {
+    "mtime": 1786085785.0,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "tsconfig.json": {
+    "mtime": 1786085785.0,
+    "ast_hash": "f67af494aefeae8b9d2d0dc4021ce32d",
+    "semantic_hash": "f67af494aefeae8b9d2d0dc4021ce32d"
+  },
+  "vite.config.ts": {
+    "mtime": 1786085785.0,
+    "ast_hash": "90cafdad1b96ab60f7fcd576653b548c",
+    "semantic_hash": "90cafdad1b96ab60f7fcd576653b548c"
+  },
+  "AGENTS.md": {
+    "mtime": 1786085785.0,
+    "ast_hash": "704403927d5803613a0aefe03b8fb477",
+    "semantic_hash": "704403927d5803613a0aefe03b8fb477"
+  },
+  "CLAUDE.md": {
+    "mtime": 1786085785.0,
+    "ast_hash": "5c27369b226fcf2be8a6cfe52224e767",
+    "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
+  },
+  "index.html": {
+    "mtime": 1786085785.0,
+    "ast_hash": "02d04d4321f068edfa562d42ad5d0e02",
+    "semantic_hash": "02d04d4321f068edfa562d42ad5d0e02"
+  },
+  "src/imports/pasted_text/yazan-alshikh-portfolio-1.md": {
+    "mtime": 1786085785.0,
+    "ast_hash": "b5b9d2842df0430459b21f7f8997ea55",
+    "semantic_hash": "b5b9d2842df0430459b21f7f8997ea55"
+  },
+  "src/imports/pasted_text/yazan-alshikh-portfolio.md": {
+    "mtime": 1786085785.0,
+    "ast_hash": "b5b9d2842df0430459b21f7f8997ea55",
+    "semantic_hash": "b5b9d2842df0430459b21f7f8997ea55"
+  },
+  "src/imports/pasted_text/yazan-portfolio-prompt.md": {
+    "mtime": 1786085785.0,
+    "ast_hash": "6132adb113393710ea3dca50be4e7469",
+    "semantic_hash": "6132adb113393710ea3dca50be4e7469"
+  }
+}
