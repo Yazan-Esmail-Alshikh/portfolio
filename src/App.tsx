@@ -304,7 +304,7 @@ function Hero() {
               className="btn-ghost"
               style={{ ...mono, fontSize: '12px', color: T.ivory, background: 'transparent', padding: '12px 24px', border: `1px solid rgba(245,243,238,0.2)`, letterSpacing: '0.04em', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
             >
-              ↓ Download CV
+              Download CV ↓
             </a>
           </div>
         </div>
