@@ -331,7 +331,7 @@ function Divider() {
 // ── Experience ─────────────────────────────────────────────────────────────
 const experiences = [
   {
-    role: 'Senior Flutter Developer', company: 'Pharaon Group', period: '2026/03 – Present',
+    role: 'Senior Flutter Developer', company: 'Ultrawares', period: '2026/03 – Present',
     scope: 'Refactoring a large-scale IPTV platform and shipping Askoonect, a tendering and procurement platform.',
     bullets: [
       'Refactored and enhanced a large-scale IPTV application, improving performance, code maintainability, and streaming reliability',
@@ -805,9 +805,12 @@ function EducationLanguages() {
 function ContactChannel({ label, value, href, icon, delay, visible }: {
   label: string; value: string; href: string; icon: React.ReactNode; delay: number; visible: boolean
 }) {
+  const isExternal = href.startsWith('http')
   return (
     <a
       href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
       className="contact-channel"
       style={{
         display: 'flex', alignItems: 'center', gap: '16px',
@@ -883,6 +886,20 @@ function Contact() {
             icon={
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
                 <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.4.55 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .55 3.4 1 1 0 0 1-.25 1z" />
+              </svg>
+            }
+          />
+          <ContactChannel
+            label="LINKEDIN"
+            value="Yazan Alshikh"
+            href="https://www.linkedin.com/in/yazan-alshikh-2b7092230/"
+            delay={320}
+            visible={visible}
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
               </svg>
             }
           />
