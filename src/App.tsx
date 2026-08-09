@@ -297,6 +297,15 @@ function Hero() {
             >
               +963 931 697 454
             </a>
+            {/* Download CV */}
+            <a
+              href={`${import.meta.env.BASE_URL}Yazan-Alshikh-CV.pdf`}
+              download="Yazan-Alshikh-CV.pdf"
+              className="btn-ghost"
+              style={{ ...mono, fontSize: '12px', color: T.ivory, background: 'transparent', padding: '12px 24px', border: `1px solid rgba(245,243,238,0.2)`, letterSpacing: '0.04em', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+            >
+              ↓ Download CV
+            </a>
           </div>
         </div>
         {/* Meter panel */}
@@ -726,7 +735,7 @@ function SkillCard({ g, index }: { g: typeof skillGroups[0]; index: number }) {
         <span style={{ opacity: 0.5 }}>{String(index + 1).padStart(2, '0')}</span>
       </div>
       <div style={{
-        display: 'flex', flexDirection: 'column', gap: '2px',
+        display: 'flex', flexWrap: 'wrap', columnGap: '22px', rowGap: '10px',
         ...(rm ? {} : { opacity: visible ? 1 : 0, transition: `opacity 420ms ease-out ${index * 65 + 120}ms` }),
       }}>
         {g.items.map((item) => (
@@ -735,7 +744,7 @@ function SkillCard({ g, index }: { g: typeof skillGroups[0]; index: number }) {
               width: '5px', height: '5px', borderRadius: '50%',
               border: `1px solid rgba(138,138,144,0.5)`, background: 'transparent',
             }} />
-            <span style={{ ...sans, fontSize: '13px', color: T.grey, fontWeight: 300 }}>{item}</span>
+            <span style={{ ...sans, fontSize: '13px', color: T.grey, fontWeight: 300, whiteSpace: 'nowrap' }}>{item}</span>
           </span>
         ))}
       </div>
@@ -751,7 +760,7 @@ function Skills() {
         <div style={{ ...mono, fontSize: '10px', color: T.brass, letterSpacing: '0.2em', marginBottom: '10px', opacity: 0.7 }}>CAPABILITIES</div>
         <h2 style={{ ...serif, fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 600, color: T.ivory, margin: 0, letterSpacing: '-0.02em' }}>Skills</h2>
       </div>
-      <div className="grid-skills" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+      <div className="grid-skills" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
         {skillGroups.map((g, i) => <SkillCard key={i} g={g} index={i} />)}
       </div>
     </section>

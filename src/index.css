@@ -339,9 +339,6 @@ body {
   .grid-edu {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
   }
-  .grid-skills {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
 }
 
 /* ── Responsive: mobile ── */
@@ -358,17 +355,11 @@ body {
   .channel-date-row { justify-content: space-between !important; width: 100%; margin-top: 10px; }
 
   .grid-projects,
-  .grid-skills,
   .grid-edu {
     grid-template-columns: 1fr !important;
   }
 
   .contact-links { gap: 28px !important; }
-}
-
-/* ── Responsive: small tablet (skills stays 3-col until it doesn't fit) ── */
-@media (min-width: 861px) and (max-width: 1000px) {
-  .grid-skills { grid-template-columns: repeat(3, 1fr) !important; }
 }
 
 /* ── Reduced motion overrides ── */
