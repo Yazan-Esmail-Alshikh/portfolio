@@ -165,6 +165,7 @@ function LevelMeter({ running }: { running: boolean }) {
 function Header() {
   const [loaded, setLoaded] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const rm = prefersReducedMotion()
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 60)
@@ -176,20 +177,22 @@ function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const navItems = ['Work', 'Experience', 'Skills', 'Contact']
+
   return (
     <header style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-      background: scrolled ? T.panel : 'rgba(10,10,11,0.88)',
+      background: scrolled || menuOpen ? T.panel : 'rgba(10,10,11,0.88)',
       backdropFilter: 'blur(12px)',
-      borderBottom: scrolled ? `1px solid rgba(245,243,238,0.10)` : `1px solid rgba(245,243,238,0.06)`,
+      borderBottom: scrolled || menuOpen ? `1px solid rgba(245,243,238,0.10)` : `1px solid rgba(245,243,238,0.06)`,
       ...(rm ? {} : { opacity: loaded ? 1 : 0, transition: 'opacity 300ms ease-out, background 200ms, border-color 200ms' }),
     }}>
-      <div style={{ maxWidth: '1080px', margin: '0 auto', padding: '0 28px', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ ...mono, fontSize: '12px', color: T.ivory, letterSpacing: '0.08em', fontWeight: 500 }}>
+      <div className="header-inner" style={{ maxWidth: '1080px', margin: '0 auto', padding: '0 28px', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span className="header-brand" style={{ ...mono, fontSize: '12px', color: T.ivory, letterSpacing: '0.08em', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0, flex: '1 1 auto', marginRight: '12px' }}>
           YAZAN ALSHIKH&nbsp;&nbsp;—&nbsp;&nbsp;SENIOR FLUTTER DEVELOPER
         </span>
-        <nav style={{ display: 'flex', gap: '28px' }}>
-          {['Work', 'Experience', 'Skills', 'Contact'].map((item) => (
+        <nav className="site-nav" style={{ display: 'flex', gap: '28px' }}>
+          {navItems.map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -202,7 +205,43 @@ function Header() {
             </a>
           ))}
         </nav>
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span style={{ ...mono, fontSize: '10px', color: T.ivory, letterSpacing: '0.1em' }}>
+            {menuOpen ? '✕ CLOSE' : '☰ MENU'}
+          </span>
+        </button>
       </div>
+      {menuOpen && (
+        <nav
+          style={{
+            borderTop: `1px solid rgba(245,243,238,0.08)`,
+            padding: '8px 18px 18px',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {navItems.map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                ...sans, fontSize: '14px', color: T.grey, letterSpacing: '0.04em',
+                textTransform: 'uppercase' as const, padding: '12px 0',
+                borderBottom: `1px solid rgba(245,243,238,0.05)`,
+              }}
+            >
+              {item}
+            </a>
+          ))}
+        </nav>
+      )}
     </header>
   )
 }
@@ -223,22 +262,22 @@ function Hero() {
   }, [rm])
 
   return (
-    <section style={{ padding: '130px 28px 100px', maxWidth: '1080px', margin: '0 auto', position: 'relative' }}>
+    <section className="hero-section" style={{ padding: '130px 28px 100px', maxWidth: '1080px', margin: '0 auto', position: 'relative' }}>
       <div aria-hidden style={{
-        position: 'absolute', top: '10%', right: '0', width: '560px', height: '560px',
+        position: 'absolute', top: '10%', right: '0', width: '560px', height: '560px', maxWidth: '90vw',
         borderRadius: '50%', background: `radial-gradient(circle, ${T.indigo} 0%, transparent 70%)`,
         animation: 'indigo-bloom 6s ease-in-out infinite', pointerEvents: 'none', zIndex: 0,
       }} />
-      <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', gap: '60px', alignItems: 'start' }}>
+      <div className="hero-grid" style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', gap: '60px', alignItems: 'start' }}>
         <div style={{ maxWidth: '560px' }}>
           <div style={{ ...fadeRise(phase >= 1, 0, 16, 600), ...mono, fontSize: '11px', color: T.brass, letterSpacing: '0.15em', marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: T.brass, animation: 'live-pulse 1.8s ease-in-out infinite', flexShrink: 0 }} />
             LIVE — AVAILABLE FOR REMOTE ROLES
           </div>
-          <h1 style={{ ...fadeRise(phase >= 1, 0, 16, 600), ...serif, fontSize: 'clamp(34px, 4.5vw, 56px)', fontWeight: 600, color: T.ivory, lineHeight: 1.1, margin: '0 0 24px', letterSpacing: '-0.02em' }}>
+          <h1 style={{ ...fadeRise(phase >= 1, 0, 16, 600), ...serif, fontSize: 'clamp(30px, 4.5vw, 56px)', fontWeight: 600, color: T.ivory, lineHeight: 1.1, margin: '0 0 24px', letterSpacing: '-0.02em' }}>
             Code that aligns with business goals, not just specs.
           </h1>
-          <p style={{ ...fadeRise(phase >= 2, 0, 14, 560), ...sans, fontSize: '16px', color: T.grey, lineHeight: 1.75, margin: '0 0 40px', fontWeight: 300 }}>
+          <p style={{ ...fadeRise(phase >= 2, 0, 14, 560), ...sans, fontSize: 'clamp(14px, 2vw, 16px)', color: T.grey, lineHeight: 1.75, margin: '0 0 40px', fontWeight: 300 }}>
             Senior Flutter Engineer with 4+ years building and scaling production-grade mobile platforms across fintech, healthcare, real-time communication, and data-driven consumer apps — offline-first architecture, live audio and messaging, secure data pipelines, and high-performance apps shipped to Google Play and the App Store.
           </p>
           <div style={{ ...fadeRise(phase >= 3, 0, 12, 520), display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -261,7 +300,7 @@ function Hero() {
           </div>
         </div>
         {/* Meter panel */}
-        <div style={{ ...fadeRise(phase >= 3, 60, 12, 500), background: T.panel, border: `1px solid rgba(245,243,238,0.05)`, padding: '16px', minWidth: '280px' }}>
+        <div className="hero-meter-panel meter-panel-glow" style={{ ...fadeRise(phase >= 3, 60, 12, 500), background: T.panel, border: `1px solid rgba(245,243,238,0.05)`, padding: '16px', minWidth: '280px' }}>
           <div style={{ ...mono, fontSize: '9px', color: T.grey, letterSpacing: '0.15em', marginBottom: '8px', opacity: 0.6 }}>
             SIGNAL MONITOR / CH 1–5
           </div>
@@ -277,7 +316,7 @@ function Hero() {
 
 // ── Divider ────────────────────────────────────────────────────────────────
 function Divider() {
-  return <div style={{ maxWidth: '1080px', margin: '0 auto', padding: '0 28px', borderTop: `1px solid rgba(245,243,238,0.06)` }} />
+  return <div className="section-pad" style={{ maxWidth: '1080px', margin: '0 auto', padding: '0 28px', borderTop: `1px solid rgba(245,243,238,0.06)` }} />
 }
 
 // ── Experience ─────────────────────────────────────────────────────────────
@@ -336,6 +375,7 @@ function ChannelStrip({ exp, index }: { exp: typeof experiences[0]; index: numbe
   const [hovered, setHovered] = useState(false)
   const { ref, visible } = useReveal(0.1)
   const rm = prefersReducedMotion()
+  const gainPct = exp.current ? 92 : Math.max(30, 78 - index * 14)
 
   return (
     <div
@@ -348,6 +388,8 @@ function ChannelStrip({ exp, index }: { exp: typeof experiences[0]; index: numbe
         background: T.panel,
         border: `1px solid rgba(245,243,238,0.05)`,
         cursor: 'pointer',
+        display: 'grid',
+        gridTemplateColumns: '34px 1fr',
         opacity: rm || visible ? 1 : 0,
         ...(rm ? {} : {
           transform: visible ? 'translateY(0)' : 'translateY(12px)',
@@ -359,53 +401,88 @@ function ChannelStrip({ exp, index }: { exp: typeof experiences[0]; index: numbe
       onMouseLeave={() => setHovered(false)}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!open) } }}
     >
-      <div style={{ padding: '22px 28px', display: 'grid', gridTemplateColumns: '1fr auto', gap: '20px', alignItems: 'start' }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '4px', flexWrap: 'wrap' }}>
-            {exp.current && (
-              <span style={{ ...mono, fontSize: '9px', color: T.brass, letterSpacing: '0.15em', border: `1px solid rgba(212,169,78,0.4)`, padding: '2px 7px' }}>LIVE</span>
-            )}
-            <span style={{ ...serif, fontSize: '18px', fontWeight: 600, color: T.ivory }}>{exp.role}</span>
-            <span style={{ ...sans, fontSize: '15px', color: T.grey, fontWeight: 300 }}>{exp.company}</span>
-          </div>
-          <p style={{ ...sans, fontSize: '13px', color: T.grey, margin: '6px 0 0', lineHeight: 1.5, fontWeight: 300, fontStyle: 'italic' }}>
-            {exp.scope}
-          </p>
+      {/* Gain rail — vertical fader track representing seniority/recency */}
+      <div style={{
+        borderRight: `1px solid rgba(245,243,238,0.06)`,
+        background: 'rgba(0,0,0,0.18)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        padding: '14px 0', position: 'relative',
+      }}>
+        <div
+          className="channel-led"
+          style={{
+            width: '6px', height: '6px', borderRadius: '50%', flexShrink: 0, marginBottom: '10px',
+            background: exp.current ? T.brass : 'rgba(138,138,144,0.4)',
+            boxShadow: exp.current ? `0 0 6px rgba(212,169,78,0.7)` : 'none',
+          }}
+        />
+        <div style={{ flex: 1, width: '3px', background: 'rgba(245,243,238,0.07)', borderRadius: '2px', position: 'relative', minHeight: '64px' }}>
+          <div
+            className="channel-rail-fill"
+            style={{
+              position: 'absolute', bottom: 0, left: 0, right: 0,
+              height: rm || visible ? `${gainPct}%` : '0%',
+              borderRadius: '2px',
+              background: exp.current
+                ? `linear-gradient(to top, ${T.brass}, #E8C870)`
+                : `linear-gradient(to top, ${T.indigo}, rgba(107,92,165,0.5))`,
+            }}
+          />
         </div>
-        {/* Date — brightens on hover like a channel going active */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '16px', flexShrink: 0,
-          ...(rm ? {} : {
-            opacity: visible ? 1 : 0,
-            transition: `opacity 400ms ease-out ${index * 70 + 100}ms, color 160ms ease-out`,
-          }),
-        }}>
-          <span style={{ ...mono, fontSize: '11px', color: hovered ? T.ivory : T.grey, letterSpacing: '0.04em', whiteSpace: 'nowrap', transition: 'color 160ms ease-out' }}>
-            {exp.period}
-          </span>
-          <span style={{ ...mono, fontSize: '10px', color: T.grey, opacity: 0.5, transition: 'transform 0.2s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>
-            ▶
-          </span>
-        </div>
+        <span style={{ ...mono, fontSize: '8px', color: T.grey, opacity: 0.4, marginTop: '10px', letterSpacing: '0.05em' }}>
+          {String(experiences.length - index).padStart(2, '0')}
+        </span>
       </div>
 
-      {open && (
-        <div style={{ padding: '0 28px 24px', borderTop: `1px solid rgba(245,243,238,0.05)` }}>
-          <ul style={{ margin: '16px 0 20px', padding: '0 0 0 16px' }}>
-            {exp.bullets.map((b, j) => (
-              <li key={j} style={{ ...sans, fontSize: '14px', color: T.grey, lineHeight: 1.7, marginBottom: '8px', fontWeight: 300 }}>{b}</li>
-            ))}
-          </ul>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
-            <span style={{ ...mono, fontSize: '9px', color: T.grey, opacity: 0.5, marginRight: '4px', letterSpacing: '0.1em' }}>STACK —</span>
-            {exp.stack.map((s) => (
-              <span key={s} style={{ ...mono, fontSize: '10px', color: T.grey, letterSpacing: '0.04em' }}>
-                {s}<span style={{ opacity: 0.3, marginLeft: '6px' }}>·</span>
-              </span>
-            ))}
+      <div>
+        <div className="channel-row" style={{ padding: '22px 24px', display: 'grid', gridTemplateColumns: '1fr auto', gap: '20px', alignItems: 'start' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '4px', flexWrap: 'wrap' }}>
+              {exp.current && (
+                <span style={{ ...mono, fontSize: '9px', color: T.brass, letterSpacing: '0.15em', border: `1px solid rgba(212,169,78,0.4)`, padding: '2px 7px' }}>LIVE</span>
+              )}
+              <span style={{ ...serif, fontSize: '18px', fontWeight: 600, color: T.ivory }}>{exp.role}</span>
+              <span style={{ ...sans, fontSize: '15px', color: T.grey, fontWeight: 300 }}>{exp.company}</span>
+            </div>
+            <p style={{ ...sans, fontSize: '13px', color: T.grey, margin: '6px 0 0', lineHeight: 1.5, fontWeight: 300, fontStyle: 'italic' }}>
+              {exp.scope}
+            </p>
+          </div>
+          {/* Date — brightens on hover like a channel going active */}
+          <div className="channel-date-row" style={{
+            display: 'flex', alignItems: 'center', gap: '16px', flexShrink: 0,
+            ...(rm ? {} : {
+              opacity: visible ? 1 : 0,
+              transition: `opacity 400ms ease-out ${index * 70 + 100}ms, color 160ms ease-out`,
+            }),
+          }}>
+            <span style={{ ...mono, fontSize: '11px', color: hovered ? T.ivory : T.grey, letterSpacing: '0.04em', whiteSpace: 'nowrap', transition: 'color 160ms ease-out' }}>
+              {exp.period}
+            </span>
+            <span style={{ ...mono, fontSize: '10px', color: T.grey, opacity: 0.5, transition: 'transform 0.2s', transform: open ? 'rotate(90deg)' : 'rotate(0deg)', display: 'inline-block' }}>
+              ▶
+            </span>
           </div>
         </div>
-      )}
+
+        {open && (
+          <div style={{ padding: '0 24px 24px', borderTop: `1px solid rgba(245,243,238,0.05)` }}>
+            <ul style={{ margin: '16px 0 20px', padding: '0 0 0 16px' }}>
+              {exp.bullets.map((b, j) => (
+                <li key={j} style={{ ...sans, fontSize: '14px', color: T.grey, lineHeight: 1.7, marginBottom: '8px', fontWeight: 300 }}>{b}</li>
+              ))}
+            </ul>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
+              <span style={{ ...mono, fontSize: '9px', color: T.grey, opacity: 0.5, marginRight: '4px', letterSpacing: '0.1em' }}>STACK —</span>
+              {exp.stack.map((s) => (
+                <span key={s} style={{ ...mono, fontSize: '10px', color: T.grey, letterSpacing: '0.04em' }}>
+                  {s}<span style={{ opacity: 0.3, marginLeft: '6px' }}>·</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -413,12 +490,12 @@ function ChannelStrip({ exp, index }: { exp: typeof experiences[0]; index: numbe
 function Experience() {
   const { ref, visible } = useReveal(0.1)
   return (
-    <section id="experience" style={{ padding: '80px 28px', maxWidth: '1080px', margin: '0 auto' }}>
+    <section id="experience" className="section-pad" style={{ padding: '80px 28px', maxWidth: '1080px', margin: '0 auto' }}>
       <div ref={ref} style={{ marginBottom: '52px', ...fadeRise(visible, 0, 12, 500) }}>
         <div style={{ ...mono, fontSize: '10px', color: T.brass, letterSpacing: '0.2em', marginBottom: '10px', opacity: 0.7 }}>CHANNELS</div>
         <h2 style={{ ...serif, fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 600, color: T.ivory, margin: 0, letterSpacing: '-0.02em' }}>Experience</h2>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         {experiences.map((exp, i) => <ChannelStrip key={i} exp={exp} index={i} />)}
       </div>
     </section>
@@ -494,6 +571,7 @@ function StoreButton({ href, label, icon }: { href: string; label: string; icon:
       target={href === '#' ? undefined : '_blank'}
       rel="noreferrer"
       aria-label={label}
+      className="store-btn"
       style={{
         display: 'inline-flex',
         alignItems: 'center',
@@ -505,7 +583,6 @@ function StoreButton({ href, label, icon }: { href: string; label: string; icon:
         padding: '5px 11px',
         border: `1px solid rgba(245,243,238,0.12)`,
         letterSpacing: '0.06em',
-        transition: 'color 150ms ease-out, border-color 150ms ease-out, background-color 150ms ease-out',
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLElement
@@ -538,25 +615,40 @@ function ProjectCard({ p, index }: { p: typeof projects[0]; index: number }) {
         border: `1px solid rgba(245,243,238,0.05)`,
         opacity: rm || visible ? 1 : 0,
         display: 'flex', flexDirection: 'column', gap: '14px',
+        position: 'relative', overflow: 'hidden',
+        clipPath: 'polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%)',
         ...(rm ? {} : {
           transform: visible ? 'translateY(0)' : 'translateY(12px)',
-          transition: `opacity 480ms ease-out ${index * 70}ms, transform 480ms ease-out ${index * 70}ms, box-shadow 180ms ease-out`,
+          transition: `opacity 480ms ease-out ${index * 70}ms, transform 480ms ease-out ${index * 70}ms, box-shadow 220ms ease-out, border-color 220ms ease-out`,
         }),
       }}
     >
-      <div>
+      {/* Diagonal corner accent */}
+      <div aria-hidden style={{
+        position: 'absolute', top: 0, right: 0, width: '22px', height: '22px',
+        background: T.indigo, opacity: 0.35, clipPath: 'polygon(100% 0, 0 0, 100% 100%)',
+      }} />
+      {/* Ghost index numeral */}
+      <span aria-hidden className="project-ghost-num" style={{
+        ...serif, position: 'absolute', top: '-8px', right: '14px', fontSize: '72px', fontWeight: 700,
+        color: T.ivory, opacity: 0.05, lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
+      }}>
+        {String(index + 1).padStart(2, '0')}
+      </span>
+
+      <div style={{ position: 'relative' }}>
         <div style={{ ...serif, fontSize: '18px', fontWeight: 600, color: T.ivory, marginBottom: '3px' }}>{p.name}</div>
         <div style={{ ...mono, fontSize: '9px', color: T.brass, letterSpacing: '0.1em', opacity: 0.8 }}>{p.sub}</div>
       </div>
-      <p style={{ ...sans, fontSize: '13px', color: T.grey, lineHeight: 1.7, margin: 0, fontWeight: 300, flex: 1 }}>{p.desc}</p>
+      <p style={{ ...sans, fontSize: '13px', color: T.grey, lineHeight: 1.7, margin: 0, fontWeight: 300, flex: 1, position: 'relative' }}>{p.desc}</p>
 
       {/* Store links */}
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', position: 'relative' }}>
         {p.googlePlay && <StoreButton href={p.googlePlay} label="Google Play" icon={<GooglePlayIcon />} />}
         {p.appStore && <StoreButton href={p.appStore} label="App Store" icon={<AppStoreIcon />} />}
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', paddingTop: '14px', borderTop: `1px solid rgba(245,243,238,0.06)` }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', paddingTop: '14px', borderTop: `1px solid rgba(245,243,238,0.06)`, position: 'relative' }}>
         {p.stack.map((s, si) => (
           <span
             key={s}
@@ -581,12 +673,12 @@ function ProjectCard({ p, index }: { p: typeof projects[0]; index: number }) {
 function Projects() {
   const { ref, visible } = useReveal(0.1)
   return (
-    <section id="work" style={{ padding: '80px 28px', maxWidth: '1080px', margin: '0 auto' }}>
+    <section id="work" className="section-pad" style={{ padding: '80px 28px', maxWidth: '1080px', margin: '0 auto' }}>
       <div ref={ref} style={{ marginBottom: '52px', ...fadeRise(visible, 0, 12, 500) }}>
         <div style={{ ...mono, fontSize: '10px', color: T.brass, letterSpacing: '0.2em', marginBottom: '10px', opacity: 0.7 }}>SELECTED WORK</div>
         <h2 style={{ ...serif, fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 600, color: T.ivory, margin: 0, letterSpacing: '-0.02em' }}>Featured Projects</h2>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '2px' }}>
+      <div className="grid-projects" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '18px' }}>
         {projects.map((p, i) => <ProjectCard key={i} p={p} index={i} />)}
       </div>
     </section>
@@ -613,8 +705,10 @@ function SkillCard({ g, index }: { g: typeof skillGroups[0]; index: number }) {
       ref={ref}
       className="skill-card"
       style={{
-        background: T.panel, padding: '24px 28px',
+        background: `${T.panel} radial-gradient(rgba(245,243,238,0.05) 1px, transparent 1px) 0 0/14px 14px`,
+        padding: '24px 26px',
         border: `1px solid rgba(245,243,238,0.05)`,
+        borderLeft: `2px solid rgba(107,92,165,0.4)`,
         ...(rm ? {} : {
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(10px)',
@@ -624,18 +718,24 @@ function SkillCard({ g, index }: { g: typeof skillGroups[0]; index: number }) {
     >
       <div style={{
         ...mono, fontSize: '9px', color: T.brass, letterSpacing: '0.18em',
-        marginBottom: '16px', opacity: 0.7, paddingBottom: '12px',
+        marginBottom: '16px', opacity: 0.8, paddingBottom: '12px',
         borderBottom: `1px solid rgba(245,243,238,0.06)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
-        {g.group.toUpperCase()}
+        <span>{g.group.toUpperCase()}</span>
+        <span style={{ opacity: 0.5 }}>{String(index + 1).padStart(2, '0')}</span>
       </div>
       <div style={{
-        display: 'flex', flexDirection: 'column', gap: '6px',
+        display: 'flex', flexDirection: 'column', gap: '2px',
         ...(rm ? {} : { opacity: visible ? 1 : 0, transition: `opacity 420ms ease-out ${index * 65 + 120}ms` }),
       }}>
         {g.items.map((item) => (
-          <span key={item} className="skill-item" style={{ ...sans, fontSize: '13px', color: T.grey, fontWeight: 300 }}>
-            {item}
+          <span key={item} className="skill-item" style={{ display: 'flex', alignItems: 'center', gap: '9px', padding: '4px 0' }}>
+            <span className="skill-jack" aria-hidden style={{
+              width: '5px', height: '5px', borderRadius: '50%',
+              border: `1px solid rgba(138,138,144,0.5)`, background: 'transparent',
+            }} />
+            <span style={{ ...sans, fontSize: '13px', color: T.grey, fontWeight: 300 }}>{item}</span>
           </span>
         ))}
       </div>
@@ -646,12 +746,12 @@ function SkillCard({ g, index }: { g: typeof skillGroups[0]; index: number }) {
 function Skills() {
   const { ref, visible } = useReveal(0.1)
   return (
-    <section id="skills" style={{ padding: '80px 28px', maxWidth: '1080px', margin: '0 auto' }}>
+    <section id="skills" className="section-pad" style={{ padding: '80px 28px', maxWidth: '1080px', margin: '0 auto' }}>
       <div ref={ref} style={{ marginBottom: '52px', ...fadeRise(visible, 0, 12, 500) }}>
         <div style={{ ...mono, fontSize: '10px', color: T.brass, letterSpacing: '0.2em', marginBottom: '10px', opacity: 0.7 }}>CAPABILITIES</div>
         <h2 style={{ ...serif, fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 600, color: T.ivory, margin: 0, letterSpacing: '-0.02em' }}>Skills</h2>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '2px' }}>
+      <div className="grid-skills" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
         {skillGroups.map((g, i) => <SkillCard key={i} g={g} index={i} />)}
       </div>
     </section>
@@ -662,10 +762,10 @@ function Skills() {
 function EducationLanguages() {
   const { ref, visible } = useReveal(0.1)
   return (
-    <section style={{ padding: '40px 28px 80px', maxWidth: '1080px', margin: '0 auto' }}>
-      <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '2px' }}>
+    <section className="section-pad" style={{ padding: '40px 28px 80px', maxWidth: '1080px', margin: '0 auto' }}>
+      <div ref={ref} className="grid-edu" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '16px' }}>
         {[0, 1].map((i) => (
-          <div key={i} style={{ background: T.panel, padding: '28px', border: `1px solid rgba(245,243,238,0.05)`, ...fadeRise(visible, i * 70, 10, 480) }}>
+          <div key={i} className="edu-card" style={{ background: T.panel, padding: '28px', border: `1px solid rgba(245,243,238,0.05)`, ...fadeRise(visible, i * 70, 10, 480) }}>
             {i === 0 ? (
               <>
                 <div style={{ ...mono, fontSize: '9px', color: T.brass, letterSpacing: '0.18em', marginBottom: '16px', opacity: 0.7 }}>EDUCATION</div>
@@ -693,46 +793,90 @@ function EducationLanguages() {
 }
 
 // ── Contact ────────────────────────────────────────────────────────────────
+function ContactChannel({ label, value, href, icon, delay, visible }: {
+  label: string; value: string; href: string; icon: React.ReactNode; delay: number; visible: boolean
+}) {
+  return (
+    <a
+      href={href}
+      className="contact-channel"
+      style={{
+        display: 'flex', alignItems: 'center', gap: '16px',
+        padding: '20px 22px', background: 'rgba(0,0,0,0.18)',
+        border: `1px solid rgba(245,243,238,0.08)`,
+        textDecoration: 'none', flex: '1 1 240px', minWidth: '240px',
+        ...fadeRise(visible, delay, 10, 560),
+      }}
+    >
+      <span className="contact-channel-icon" style={{
+        width: '38px', height: '38px', flexShrink: 0, borderRadius: '50%',
+        border: `1px solid rgba(212,169,78,0.35)`, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: T.brass,
+      }}>
+        {icon}
+      </span>
+      <span style={{ minWidth: 0 }}>
+        <span style={{ ...mono, fontSize: '9px', color: T.grey, letterSpacing: '0.2em', opacity: 0.6, display: 'block', marginBottom: '5px' }}>
+          {label}
+        </span>
+        <span style={{ ...sans, fontSize: '15px', fontWeight: 500, color: T.ivory, display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {value}
+        </span>
+      </span>
+      <span aria-hidden className="contact-channel-arrow" style={{ ...mono, fontSize: '13px', color: T.grey, marginLeft: 'auto', flexShrink: 0 }}>
+        →
+      </span>
+    </a>
+  )
+}
+
 function Contact() {
   const { ref, visible } = useReveal(0.12)
   return (
-    <section id="contact" style={{ background: T.panel, borderTop: `1px solid rgba(245,243,238,0.06)`, borderBottom: `1px solid rgba(245,243,238,0.06)`, padding: '96px 28px' }}>
-      <div ref={ref} style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <div style={{ ...mono, fontSize: '10px', color: T.brass, letterSpacing: '0.2em', marginBottom: '20px', opacity: 0.7, ...fadeRise(visible, 0, 14, 600) }}>
+    <section id="contact" className="section-pad" style={{ background: T.panel, borderTop: `1px solid rgba(245,243,238,0.06)`, borderBottom: `1px solid rgba(245,243,238,0.06)`, padding: '96px 28px', position: 'relative', overflow: 'hidden' }}>
+      <div aria-hidden style={{
+        position: 'absolute', bottom: '-20%', left: '-10%', width: '480px', height: '480px', maxWidth: '80vw',
+        borderRadius: '50%', background: `radial-gradient(circle, ${T.brass} 0%, transparent 70%)`,
+        opacity: 0.06, pointerEvents: 'none',
+      }} />
+      <div ref={ref} style={{ maxWidth: '640px', margin: '0 auto', position: 'relative' }}>
+        <div style={{ ...mono, fontSize: '10px', color: T.brass, letterSpacing: '0.2em', marginBottom: '20px', opacity: 0.7, display: 'flex', alignItems: 'center', gap: '8px', ...fadeRise(visible, 0, 14, 600) }}>
+          <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: T.brass, animation: visible ? 'live-pulse 1.8s ease-in-out infinite' : undefined, flexShrink: 0 }} />
           FINAL CHANNEL
         </div>
-        <h2 style={{ ...serif, fontSize: 'clamp(38px, 5vw, 60px)', fontWeight: 600, color: T.ivory, margin: '0 0 12px', letterSpacing: '-0.02em', lineHeight: 1.05, ...fadeRise(visible, 60, 16, 650) }}>
+        <h2 style={{ ...serif, fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 600, color: T.ivory, margin: '0 0 12px', letterSpacing: '-0.02em', lineHeight: 1.05, ...fadeRise(visible, 60, 16, 650) }}>
           Let's talk
         </h2>
-        <div style={{ marginBottom: '52px', ...fadeRise(visible, 120, 12, 580) }}>
+        <div style={{ marginBottom: '40px', ...fadeRise(visible, 120, 12, 580) }}>
           <div style={{ ...sans, fontSize: '15px', color: T.grey, fontWeight: 300, lineHeight: 1.6 }}>Yazan Alshikh</div>
           <div style={{ ...sans, fontSize: '14px', color: T.grey, fontWeight: 300, opacity: 0.6 }}>Senior Flutter Developer — Syria (Remote-ready)</div>
         </div>
-        <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap', ...fadeRise(visible, 200, 10, 560) }}>
-          <div>
-            <div style={{ ...mono, fontSize: '9px', color: T.grey, letterSpacing: '0.2em', marginBottom: '8px', opacity: 0.5 }}>EMAIL</div>
-            <a
-              href="mailto:yazan.alshikh@outlook.com"
-              className="link-underline"
-              style={{ ...sans, fontSize: '17px', fontWeight: 500, color: T.brass, transition: 'opacity 150ms ease-out', display: 'inline-block' }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = '0.75')}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = '1')}
-            >
-              yazan.alshikh@outlook.com
-            </a>
-          </div>
-          <div>
-            <div style={{ ...mono, fontSize: '9px', color: T.grey, letterSpacing: '0.2em', marginBottom: '8px', opacity: 0.5 }}>PHONE</div>
-            <a
-              href="tel:+963931697454"
-              className="link-underline"
-              style={{ ...mono, fontSize: '17px', fontWeight: 500, color: T.brass, transition: 'opacity 150ms ease-out', display: 'inline-block' }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = '0.75')}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = '1')}
-            >
-              +963 931 697 454
-            </a>
-          </div>
+        <div className="contact-links" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+          <ContactChannel
+            label="EMAIL"
+            value="yazan.alshikh@outlook.com"
+            href="mailto:yazan.alshikh@outlook.com"
+            delay={200}
+            visible={visible}
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3 7 9 6 9-6" />
+              </svg>
+            }
+          />
+          <ContactChannel
+            label="PHONE"
+            value="+963 931 697 454"
+            href="tel:+963931697454"
+            delay={260}
+            visible={visible}
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.4.55 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .55 3.4 1 1 0 0 1-.25 1z" />
+              </svg>
+            }
+          />
         </div>
       </div>
     </section>
@@ -743,9 +887,15 @@ function Contact() {
 function Footer() {
   const { ref, visible } = useReveal(0.3)
   return (
-    <footer style={{ padding: '20px 28px' }}>
+    <footer className="section-pad" style={{ padding: '20px 28px' }}>
       <div ref={ref} style={{ maxWidth: '1080px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', ...fadeOnly(visible, 0, 400) }}>
-        <span style={{ ...mono, fontSize: '11px', color: T.grey, opacity: 0.4, letterSpacing: '0.04em' }}>Yazan Alshikh</span>
+        <a
+          href="#contact"
+          className="footer-name"
+          style={{ ...mono, fontSize: '11px', color: T.grey, opacity: 0.4, letterSpacing: '0.04em', textDecoration: 'none' }}
+        >
+          Yazan Alshikh
+        </a>
         <span style={{ ...mono, fontSize: '10px', color: T.grey, opacity: 0.25, letterSpacing: '0.06em' }}>© 2026</span>
       </div>
     </footer>

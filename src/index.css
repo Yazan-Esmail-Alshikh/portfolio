@@ -106,7 +106,7 @@ body {
   outline-offset: 3px;
 }
 
-/* ── Channel strip ── */
+/* ── Channel strip base (hover/active details below near .channel-led) ── */
 .channel-strip {
   transition: box-shadow 180ms ease-out, transform 180ms ease-out, background-color 180ms ease-out;
 }
@@ -123,18 +123,6 @@ body {
   outline-offset: 2px;
 }
 
-/* ── Project card ── */
-.project-card {
-  transition: box-shadow 180ms ease-out, transform 180ms ease-out;
-}
-.project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 0 1px rgba(107,92,165,0.3), 0 12px 36px rgba(107,92,165,0.16) !important;
-}
-.project-card:active {
-  transform: translateY(-1px);
-}
-
 /* ── Stack tag (inside project cards) ── */
 .stack-tag {
   transition: background-color 140ms ease-out, color 140ms ease-out, border-color 140ms ease-out;
@@ -144,11 +132,6 @@ body {
   background-color: #252529 !important;
   color: #F5F3EE !important;
   border-color: rgba(245,243,238,0.25) !important;
-}
-
-/* ── Skill group card ── */
-.skill-card {
-  transition: border-color 160ms ease-out;
 }
 
 /* ── Skill item (text label) ── */
@@ -195,6 +178,199 @@ body {
   50% { opacity: 0.18; transform: scale(1.04); }
 }
 
+/* ── Channel strip: gain rail + LED ── */
+.channel-strip {
+  position: relative;
+}
+.channel-led {
+  transition: box-shadow 200ms ease-out, background-color 200ms ease-out;
+}
+.channel-strip:hover .channel-led,
+.channel-strip[aria-expanded="true"] .channel-led {
+  animation: led-blink 1.6s ease-in-out infinite;
+}
+.channel-rail-fill {
+  transition: height 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Project card: module tilt + glow ── */
+.project-card {
+  transition: box-shadow 220ms ease-out, transform 220ms ease-out, border-color 220ms ease-out;
+  transform-style: preserve-3d;
+}
+.project-card:hover {
+  transform: translateY(-6px) rotate(-0.4deg);
+  border-color: rgba(212,169,78,0.3) !important;
+  box-shadow: 0 0 0 1px rgba(212,169,78,0.25), 0 18px 40px rgba(0,0,0,0.45), 0 4px 18px rgba(212,169,78,0.1) !important;
+}
+.project-card:active {
+  transform: translateY(-2px) rotate(0deg);
+}
+.project-ghost-num {
+  transition: opacity 220ms ease-out, transform 220ms ease-out;
+}
+.project-card:hover .project-ghost-num {
+  opacity: 0.14 !important;
+  transform: scale(1.06);
+}
+
+/* ── Skill card: patch-bay jack ── */
+.skill-card {
+  transition: border-color 200ms ease-out, background-color 200ms ease-out;
+  position: relative;
+}
+.skill-card:hover {
+  border-color: rgba(107,92,165,0.35) !important;
+}
+.skill-jack {
+  transition: border-color 160ms ease-out, background-color 160ms ease-out, box-shadow 160ms ease-out;
+  flex-shrink: 0;
+}
+.skill-item:hover .skill-jack {
+  background-color: #D4A94E !important;
+  border-color: #D4A94E !important;
+  box-shadow: 0 0 6px rgba(212,169,78,0.6);
+}
+
+/* ── Contact channel card ── */
+.contact-channel {
+  transition: border-color 200ms ease-out, background-color 200ms ease-out, transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.contact-channel:hover {
+  border-color: rgba(212,169,78,0.4) !important;
+  background-color: rgba(212,169,78,0.06) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+.contact-channel:active {
+  transform: translateY(-1px);
+}
+.contact-channel-icon {
+  transition: background-color 200ms ease-out, transform 200ms ease-out;
+}
+.contact-channel:hover .contact-channel-icon {
+  background-color: rgba(212,169,78,0.15);
+  transform: scale(1.08);
+}
+.contact-channel-arrow {
+  transition: transform 200ms ease-out, color 200ms ease-out;
+}
+.contact-channel:hover .contact-channel-arrow {
+  transform: translateX(3px);
+  color: #D4A94E !important;
+}
+
+/* ── Education / Languages card ── */
+.edu-card {
+  transition: border-color 200ms ease-out, transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.edu-card:hover {
+  border-color: rgba(212,169,78,0.25) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+
+/* ── Footer name link ── */
+.footer-name {
+  transition: opacity 160ms ease-out, color 160ms ease-out;
+}
+.footer-name:hover {
+  opacity: 0.9 !important;
+  color: #D4A94E !important;
+}
+
+/* ── Hero meter panel ── */
+.meter-panel-glow {
+  transition: border-color 220ms ease-out, box-shadow 220ms ease-out;
+}
+.meter-panel-glow:hover {
+  border-color: rgba(212,169,78,0.25) !important;
+  box-shadow: 0 0 0 1px rgba(212,169,78,0.1), 0 14px 32px rgba(0,0,0,0.35);
+}
+
+/* ── Header brand ── */
+.header-brand {
+  transition: opacity 160ms ease-out;
+}
+.header-brand:hover {
+  opacity: 0.8;
+}
+
+/* ── Section eyebrow + heading micro-motion ── */
+.section-heading {
+  transition: letter-spacing 300ms ease-out;
+}
+
+/* ── Store button lift ── */
+.store-btn {
+  transition: color 150ms ease-out, border-color 150ms ease-out, background-color 150ms ease-out, transform 150ms ease-out;
+}
+.store-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ── Mobile nav toggle ── */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(245,243,238,0.2);
+  cursor: pointer;
+  padding: 8px 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Keyframe animations ── */
+@keyframes led-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── Responsive: tablet ── */
+@media (max-width: 860px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  .hero-meter-panel {
+    min-width: 0 !important;
+    max-width: 360px;
+  }
+  .grid-projects,
+  .grid-edu {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+  }
+  .grid-skills {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 640px) {
+  .site-nav { display: none !important; }
+  .nav-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
+  .header-inner { padding: 0 18px !important; }
+  .header-brand { font-size: 10px !important; }
+
+  section, .section-pad { padding-left: 18px !important; padding-right: 18px !important; }
+  .hero-section { padding-top: 108px !important; padding-bottom: 64px !important; }
+
+  .channel-row { grid-template-columns: 1fr !important; }
+  .channel-date-row { justify-content: space-between !important; width: 100%; margin-top: 10px; }
+
+  .grid-projects,
+  .grid-skills,
+  .grid-edu {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-links { gap: 28px !important; }
+}
+
+/* ── Responsive: small tablet (skills stays 3-col until it doesn't fit) ── */
+@media (min-width: 861px) and (max-width: 1000px) {
+  .grid-skills { grid-template-columns: repeat(3, 1fr) !important; }
+}
+
 /* ── Reduced motion overrides ── */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; }
@@ -215,10 +391,22 @@ body {
 
   .channel-strip:hover { transform: none !important; }
   .channel-strip:active { transform: none !important; }
+  .channel-led, .channel-strip:hover .channel-led { animation: none !important; }
 
   .project-card:hover { transform: none !important; }
   .project-card:active { transform: none !important; }
 
   .meter-bar-wrap:hover .meter-stat-label { transform: none !important; }
   .meter-stat-label { transition: none !important; }
+
+  .contact-channel:hover,
+  .contact-channel:active { transform: none !important; }
+  .contact-channel-icon, .contact-channel:hover .contact-channel-icon { transform: none !important; }
+  .contact-channel-arrow, .contact-channel:hover .contact-channel-arrow { transform: none !important; }
+
+  .edu-card:hover { transform: none !important; }
+
+  .store-btn:hover { transform: none !important; }
+
+  .channel-rail-fill { transition: none !important; }
 }
