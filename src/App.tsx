@@ -299,7 +299,7 @@ function Hero() {
             </a>
             {/* Download CV */}
             <a
-              href={`/portfolio/Yazan-Alshikh-CV.pdf`}
+              href={`${import.meta.env.BASE_URL}Yazan-Alshikh-CV.pdf`}
               download="Yazan-Alshikh-CV.pdf"
               className="btn-ghost"
               style={{ ...mono, fontSize: '12px', color: T.ivory, background: 'transparent', padding: '12px 24px', border: `1px solid rgba(245,243,238,0.2)`, letterSpacing: '0.04em', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
