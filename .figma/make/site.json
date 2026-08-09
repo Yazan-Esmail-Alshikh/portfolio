@@ -1,0 +1,10 @@
+{
+  "description": "Easily analyze and visualize the contents of design files, enabling designers and teams to streamline their workflow and enhance collaboration.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
